@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -39,31 +40,26 @@ class FormularioTransferencia extends StatelessWidget {
             icone: Icons.monetization_on,
           ),
           ElevatedButton(
-            onPressed: () {
-              debugPrint('Clicou em confirmar');
-              // debugPrint(_controllerNumeroConta.text);
-              // debugPrint(_controllerValor.text);
-              final valor = double.tryParse(_controllerValor.text);
-              debugPrint('$valor');
-              final numeroConta = int.tryParse(_controllerNumeroConta.text);
-
-
-              if (numeroConta != null && valor != null) {
-                //Transferencia(valor, numeroConta);
-                final transferenciaCriada = Transferencia(valor, numeroConta);
-                debugPrint('$transferenciaCriada');
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('$transferenciaCriada'),
-                  ),
-                );
-              }
-            },
+            onPressed: () => _criaTransferencia(context),
             child: Text('Confirmar'),
           )
         ],
       ),
     );
+  }
+
+  void _criaTransferencia(BuildContext context) {
+    final valor = double.tryParse(_controllerValor.text);
+    final numeroConta = int.tryParse(_controllerNumeroConta.text);
+    if (numeroConta != null && valor != null) {
+      final transferenciaCriada = Transferencia(valor, numeroConta);
+      debugPrint('$transferenciaCriada');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('$transferenciaCriada'),
+        ),
+      );
+    }
   }
 }
 
